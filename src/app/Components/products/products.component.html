@@ -1,68 +1,15 @@
-<div class="container mx-auto px-4 py-4">
+<div class="container mx-auto px-4 py-4 " [class]="themeMode">
   <div class="w-72">
-    <label for="countries" class="block mb-2 text-sm font-medium text-purple-900 dark:text-white">Categories:</label>
-    <select id="countries"
-      class="bg-gray-50 border border-gray-300 text-purple-950 text-sm rounded-lg focus:ring-purple-800 focus:border-purple-800 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      <option selected>Choose a country</option>
-      <option value="US">United States</option>
-      <option value="CA">Canada</option>
-      <option value="FR">France</option>
-      <option value="DE">Germany</option>
-    </select>
+    <app-select [data]="categories" [title]="'Categories:'" (selectedValue)="filterByCategory($event)">
+    </app-select>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
-    <a routerLink="/details"
-      class="cursor-pointer bg-white p-3 hover:-translate-y-5 transition duration-300 rounded-xl shadow-md overflow-hidden"
+    <button class="cursor-pointer bg-white dark:bg-gray-800 dark:text-gray-200  p-3
+             hover:scale-110 transition duration-300 rounded-xl shadow-md  overflow-hidden"
       *ngFor="let item of products">
-      <img class="w-full h-60 object-contain object-center" [src]="item?.image" />
-
-      <div class="p-5">
-        <div class="mb-4">
-          <h3 class="text-xl font-bold text-gray-800 line-clamp-1">
-            {{ item?.title }}
-          </h3>
-          <span class="text-sm font-semibold text-gray-500 mb-2 block">{{
-            item?.category
-            }}</span>
-          <p class="text-gray-500 text-sm line-clamp-3">
-            {{ item?.description }}
-          </p>
-        </div>
-        <div class="mb-5 flex justify-between items-center">
-          <p class="text-lg font-bold text-black">
-            ${{ item?.price }}
-          </p>
-
-          <div class="flex gap-1 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-              class="w-4 h-4 text-yellow-500">
-              <path
-                d="M12 .587l3.668 7.57L23.34 9.748l-5.532 5.4L18.66 24 12 20.196 5.34 24l1.852-8.852L1.66 9.748l7.672-1.591L12 .587z">
-              </path>
-            </svg>
-
-            <span class="text-sm font-semibold text-gray-500">
-
-              {{ item?.rating?.rate }} ({{ item?.rating.count
-              }})</span>
-          </div>
-        </div>
-        <button
-          class="ml-auto px-4 py-2 bg-purple-900 text-white cursor-pointer rounded-lg flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-            <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-            <path d="M17 17h-11v-14h-2"></path>
-            <path d="M6 5l14 1l-1 7h-13"></path>
-          </svg>
-
-          <span class="ml-2">Add To Cart</span>
-        </button>
-      </div>
-    </a>
+      <app-product-structure [data]="item" (addToCart)="addToCart($event)">
+      </app-product-structure>
+    </button>
   </div>
 </div>

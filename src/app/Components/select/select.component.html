@@ -1,0 +1,10 @@
+<div [class]="themeMode">
+  <label for="countries" class="block mb-2 text-sm font-medium text-purple-900 dark:text-purple-400">{{title}}</label>
+  <select id="countries" (change)="detectChange($event)"
+    class="bg-gray-50 border border-gray-300 text-purple-950 text-sm rounded-lg focus:ring-purple-800 focus:border-purple-800 block w-full p-2.5
+      dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option selected value="all" *ngIf="all">All {{title}}</option>
+    <option class="dark:text-purple-400 " [selected]='item==select' [value]="item" *ngFor="let item of data">{{item}}
+    </option>
+  </select>
+</div>

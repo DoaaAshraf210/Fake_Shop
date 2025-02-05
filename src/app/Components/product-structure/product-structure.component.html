@@ -1,0 +1,76 @@
+<div class="p-5" [class]="themeMode">
+  <div class="group cursor-pointer relative">
+    <img [src]="data?.image" alt="Image 1" class="w-full h-60 object-contain object-center bg-white " />
+    <div
+      class="absolute inset-0 bg-[rgba(255,255,255,0.5)] dark:bg-[rgba(0,0,0,0.5)] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+      <button routerLink="/details/{{data.id}}"
+        class="bg-purple-900 text-white hover:bg-white hover:text-purple-900 dark:hover:bg-gray-800 dark:hover:text-white font-bold tracking-tighter text-xs px-4 py-2 rounded-lg transition duration-300">
+        View Product
+      </button>
+    </div>
+  </div>
+
+
+  <div class="p-5">
+    <div class="mb-4 text-left">
+      <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200 line-clamp-1">
+        {{ data?.title }}
+      </h3>
+      <span class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 block">
+        {{ data?.category }}
+      </span>
+      <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-3">
+        {{ data?.description }}
+      </p>
+    </div>
+
+    <div class="mb-2 flex justify-between items-center">
+      <p class="text-lg font-bold text-black dark:text-gray-300">
+        ${{ data?.price }}
+      </p>
+
+      <div class="flex gap-1 items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-yellow-500">
+          <path
+            d="M12 .587l3.668 7.57L23.34 9.748l-5.532 5.4L18.66 24 12 20.196 5.34 24l1.852-8.852L1.66 9.748l7.672-1.591L12 .587z">
+          </path>
+        </svg>
+        <span class="text-sm font-semibold text-gray-500 dark:text-gray-400">
+          {{ data?.rating?.rate }} ({{ data?.rating.count }})
+        </span>
+      </div>
+    </div>
+
+    <div *ngIf="addButton" class="mb-5 flex items-center justify-center">
+      <button (click)="decrement()" [disabled]="amount==0"
+        class="disabled:opacity-[0.3] disabled:cursor-not-allowed flex justify-center items-center w-5 h-5 p-1 rounded-full text-white focus:outline-none bg-gray-400 dark:bg-gray-600">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M20 12H4"></path>
+        </svg>
+      </button>
+      <span id="counter" class="text-xl font-bold mx-4 text-gray-900 dark:text-gray-200">{{amount}}</span>
+      <button (click)="increment()" [disabled]="amount==10"
+        class="disabled:opacity-[0.3] disabled:cursor-not-allowed flex justify-center items-center w-5 h-5 p-1 rounded-full text-white focus:outline-none bg-purple-900 dark:bg-purple-700">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 6v12M6 12h12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Add to Cart Button -->
+    <button
+      class="ml-auto px-4 py-2 bg-purple-900 dark:bg-purple-700 text-white dark:text-gray-200 cursor-pointer rounded-lg flex items-center"
+      (click)="add();">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-cart">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+        <path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+        <path d="M17 17h-11v-14h-2"></path>
+        <path d="M6 5l14 1l-1 7h-13"></path>
+      </svg>
+      <span class="ml-2">Add To Cart</span>
+    </button>
+  </div>
+</div>

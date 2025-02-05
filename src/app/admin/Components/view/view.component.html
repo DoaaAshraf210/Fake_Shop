@@ -1,0 +1,39 @@
+<div class="bg-gray-100 dark:bg-gray-800 min-h-full py-8" [class]="themeMode">
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl text-center font-bold mb-6 text-purple-900 dark:text-purple-400">Cart Details</h1>
+
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="md:w-full">
+        <div class="bg-white dark:bg-gray-700 dark:text-gray-200 overflow-hidden rounded-lg shadow-md mb-6">
+          <table class="w-full">
+            <thead class="bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
+              <tr>
+                <th class="text-center font-semibold p-4 border-b border-gray-300 dark:border-gray-600">Product</th>
+                <th class="text-left font-semibold p-4 border-b border-gray-300 dark:border-gray-600">Price</th>
+                <th class="text-left font-semibold p-4 border-b border-gray-300 dark:border-gray-600">Quantity</th>
+                <th class="text-left font-semibold p-4 border-b border-gray-300 dark:border-gray-600">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of products"
+                class="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600">
+                <td class="p-4">
+                  <div class="flex items-center">
+                    <img class="h-16 w-16 mr-4 bg-white dark:bg-gray-900 p-2 rounded" [src]="item.item.image"
+                      alt="Product image">
+                    <div>
+                      <span class="font-semibold">{{ item.item.title }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-4">${{ item.item.price }}</td>
+                <td class="p-4">{{ item.quantity }}</td>
+                <td class="p-4">${{ item.item.price * item.quantity }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

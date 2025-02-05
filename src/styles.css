@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.toast-success {
+  background-color: #6b21a8 !important;
+  box-shadow: none !important;
+  margin-top: 10px !important;
+}
+
+.toast-error {
+  background-color: #1e293b !important;
+  box-shadow: none !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

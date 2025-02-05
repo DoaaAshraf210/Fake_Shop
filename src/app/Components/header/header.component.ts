@@ -1,6 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  DoCheck,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { themeAction } from '../../Store/theme/theme.action';
+import { lengthOfCart } from '../products/products.component';
 
 @Component({
   selector: 'app-header',
@@ -8,21 +19,34 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent implements OnInit {
-  mode: any;
+export class HeaderComponent implements OnInit, AfterViewInit {
+  themeMode: any;
+  currentTheme$: Observable<string>;
+  len: any = 0;
 
-  constructor() {
-    this.mode = localStorage.getItem('mode');
+  constructor(
+    private _Store: Store<{ theme: string }>,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.currentTheme$ = this._Store.select('theme');
+    this.currentTheme$.subscribe((newTheme) => {
+      this.themeMode = newTheme;
+    });
   }
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    lengthOfCart.subscribe((res: any) => {
+      this.len = res.size;
+    });
+  }
+  ngAfterViewInit() {
+    if ('cart' in localStorage) {
+      this.len = JSON.parse(localStorage.getItem('cart')!).length;
+    }}
   changeMode() {
-    if (localStorage.getItem('mode') == 'white') {
-      localStorage.setItem('mode', 'dark');
-      this.mode = 'dark';
-    } else {
-      localStorage.setItem('mode', 'white');
-      this.mode = 'white';
-    }
+    this._Store.dispatch(
+      themeAction({
+        theme: this.themeMode == 'white' ? 'dark' : 'white',
+      })
+    );
   }
 }

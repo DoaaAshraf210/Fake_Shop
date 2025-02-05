@@ -1,0 +1,44 @@
+<div class="min-h-screen py-8" [ngClass]="{ 'dark': themeMode === 'dark' }">
+  <div class="container mx-auto px-4">
+    <h1 class="text-3xl font-bold mb-4 text-purple-900 dark:text-purple-400">All Carts</h1>
+    <div class="flex items-center gap-4 mb-5 w-full" [formGroup]="form">
+      <div class="mb-5">
+        <label class="text-purple-900 dark:text-purple-400 block mb-1 text-lg font-semibold">Choose Start Date</label>
+        <input formControlName="start"
+          class="border-2 border-gray-300 dark:border-gray-600 rounded px-3 py-2 w-56 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          type="date" placeholder="start date">
+      </div>
+      <div class="mb-5">
+        <label class="text-purple-900 dark:text-purple-400 block mb-1 text-lg font-semibold">Choose End Date</label>
+        <input formControlName="end"
+          class="border-2 border-gray-300 dark:border-gray-600 rounded px-3 py-2 w-56 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          type="date" placeholder="end date">
+      </div>
+      <button (click)="applyFilter()"
+        class="bg-purple-900 dark:bg-purple-600 text-white py-2 px-4 rounded-lg w-32 -mb-[10px]">Apply Filter</button>
+    </div>
+    <div class="shadow-lg rounded-lg overflow-hidden">
+      <table class="w-full table-fixed">
+        <thead>
+          <tr class="bg-white dark:bg-gray-800">
+            <th class="w-1/4 py-4 px-6 text-center font-bold text-gray-900 dark:text-gray-100">Date</th>
+            <th class="w-1/4 py-4 px-6 text-center font-bold text-gray-900 dark:text-gray-100">Quantity</th>
+            <th class="w-1/4 py-4 px-6 text-center font-bold text-gray-900 dark:text-gray-100">Action</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white dark:bg-gray-800 text-center border-t border-gray-100 dark:border-gray-700">
+          <tr *ngFor="let item of cartProduct">
+            <td class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100">{{item.date | date:"yyyy-MM-dd"}}</td>
+            <td class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100">{{item.products.length}}</td>
+            <td class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100 flex gap-5 justify-center">
+              <button (click)="viewCart(item.id)"
+                class="bg-purple-500 dark:bg-purple-700 text-white py-2 px-4 rounded-lg mt-4 w-32">View</button>
+              <button (click)="deleteCart(item.id)"
+                class="bg-purple-900 dark:bg-purple-600 text-white py-2 px-4 rounded-lg mt-4 w-32">Delete Cart</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
