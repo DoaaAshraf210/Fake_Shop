@@ -6,7 +6,7 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
     <button class="cursor-pointer bg-white dark:bg-gray-800 dark:text-gray-200  p-3
-             hover:scale-110 transition duration-300 rounded-xl shadow-md  overflow-hidden"
+             hover:scale-110 max-sm:hover:scale-100 transition duration-300 rounded-xl shadow-md  overflow-hidden"
       *ngFor="let item of products">
       <app-product-structure [data]="item" (addToCart)="addToCart($event)">
       </app-product-structure>

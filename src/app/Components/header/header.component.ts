@@ -24,10 +24,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   currentTheme$: Observable<string>;
   len: any = 0;
 
-  constructor(
-    private _Store: Store<{ theme: string }>,
-    private activatedRoute: ActivatedRoute
-  ) {
+  constructor(private _Store: Store<{ theme: string }>) {
     this.currentTheme$ = this._Store.select('theme');
     this.currentTheme$.subscribe((newTheme) => {
       this.themeMode = newTheme;
@@ -39,9 +36,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     });
   }
   ngAfterViewInit() {
-    if ('cart' in localStorage) {
-      this.len = JSON.parse(localStorage.getItem('cart')!).length;
-    }}
+    //this code return length of cart if reload page
+    
+    // if ('cart' in localStorage) {
+    //   this.len = JSON.parse(localStorage.getItem('cart')!).length;
+    // }
+  }
   changeMode() {
     this._Store.dispatch(
       themeAction({

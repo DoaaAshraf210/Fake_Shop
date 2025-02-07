@@ -1,7 +1,7 @@
-<div class="min-h-screen py-8" [ngClass]="{ 'dark': themeMode === 'dark' }">
+<div class="min-h-screen py-8" [class]="themeMode">
   <div class="container mx-auto px-4">
     <h1 class="text-3xl font-bold mb-4 text-purple-900 dark:text-purple-400">All Carts</h1>
-    <div class="flex items-center gap-4 mb-5 w-full" [formGroup]="form">
+    <div class="flex max-sm:flex-col items-center gap-4 mb-5 w-full" [formGroup]="form">
       <div class="mb-5">
         <label class="text-purple-900 dark:text-purple-400 block mb-1 text-lg font-semibold">Choose Start Date</label>
         <input formControlName="start"
@@ -17,8 +17,9 @@
       <button (click)="applyFilter()"
         class="bg-purple-900 dark:bg-purple-600 text-white py-2 px-4 rounded-lg w-32 -mb-[10px]">Apply Filter</button>
     </div>
-    <div class="shadow-lg rounded-lg overflow-hidden">
-      <table class="w-full table-fixed">
+
+    <div class="shadow-lg rounded-lg overflow-x-auto">
+      <table class="min-w-full table-fixed">
         <thead>
           <tr class="bg-white dark:bg-gray-800">
             <th class="w-1/4 py-4 px-6 text-center font-bold text-gray-900 dark:text-gray-100">Date</th>
@@ -28,9 +29,12 @@
         </thead>
         <tbody class="bg-white dark:bg-gray-800 text-center border-t border-gray-100 dark:border-gray-700">
           <tr *ngFor="let item of cartProduct">
-            <td class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100">{{item.date | date:"yyyy-MM-dd"}}</td>
-            <td class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100">{{item.products.length}}</td>
-            <td class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100 flex gap-5 justify-center">
+            <td class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100">{{item.date |
+              date:"yyyy-MM-dd"}}</td>
+            <td class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100">
+              {{item.products.length}}</td>
+            <td
+              class="py-4 px-6 border-b border-gray-200 dark:border-gray-700 dark:text-gray-100 flex gap-5 justify-center">
               <button (click)="viewCart(item.id)"
                 class="bg-purple-500 dark:bg-purple-700 text-white py-2 px-4 rounded-lg mt-4 w-32">View</button>
               <button (click)="deleteCart(item.id)"
