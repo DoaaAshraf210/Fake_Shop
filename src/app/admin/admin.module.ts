@@ -13,7 +13,8 @@ import { ViewComponent } from './Components/view/view.component';
 import { AdminProductComponent } from './Components/admin-product/admin-product.component';
 import { HeaderComponent } from '../Components/header/header.component';
 import { AddProductComponent } from './Components/add-product/add-product.component';
-import { SelectComponent } from "../Components/select/select.component";
+import { SelectComponent } from '../Components/select/select.component';
+import { HeaderService } from '../Services/header.service';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/admin/cart', pathMatch: 'full' },
@@ -37,7 +38,12 @@ export const routes: Routes = [
     ToastrModule,
     CommonModule,
     RouterModule.forChild(routes),
-    SelectComponent
-],
+    SelectComponent,
+  ],
 })
-export class AdminModule {}
+export class AdminModule {
+  constructor(private headerService: HeaderService) {
+    this.headerService.setHeader('Admin Dashboard');
+    this.headerService.addCartLink(false);
+  }
+}

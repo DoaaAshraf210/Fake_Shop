@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { themeAction } from '../../Store/theme/theme.action';
 import { lengthOfCart } from '../products/products.component';
+import { HeaderService } from '../../Services/header.service';
 
 @Component({
   selector: 'app-header',
@@ -20,14 +21,26 @@ import { lengthOfCart } from '../products/products.component';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+  headerHeading = 'FakeShop';
   themeMode: any;
   currentTheme$: Observable<string>;
   len: any = 0;
+  shoppingCart: boolean = false;
 
-  constructor(private _Store: Store<{ theme: string }>) {
+  constructor(
+    private _Store: Store<{ theme: string }>,
+    private headerService: HeaderService
+  ) {
     this.currentTheme$ = this._Store.select('theme');
     this.currentTheme$.subscribe((newTheme) => {
       this.themeMode = newTheme;
+    });
+
+    headerService.headerContent.subscribe((res) => {
+      this.headerHeading = res;
+    });
+    headerService.ShoppingCart.subscribe((res) => {
+      this.shoppingCart = res;
     });
   }
   ngOnInit(): void {
@@ -36,11 +49,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     });
   }
   ngAfterViewInit() {
-    //this code return length of cart if reload page
-    
-    // if ('cart' in localStorage) {
-    //   this.len = JSON.parse(localStorage.getItem('cart')!).length;
-    // }
+    // this code return length of cart if reload page
+
+    if ('cart' in localStorage) {
+      this.len = JSON.parse(localStorage.getItem('cart')!).length;
+    }
   }
   changeMode() {
     this._Store.dispatch(

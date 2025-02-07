@@ -23,7 +23,8 @@ export class CartComponent implements OnInit {
     private _AdminCartsService: AdminCartsService,
     private _Store: Store<{ theme: string }>,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+
   ) {
     this.currentTheme$ = this._Store.select('theme');
     this.currentTheme$.subscribe((newTheme) => {
